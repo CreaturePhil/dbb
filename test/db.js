@@ -50,8 +50,19 @@ describe('PickleDB#set', function() {
   });
 });
 
+describe('PickleDB#get', function() {
+  it('should get a key', function(done) {
+    db.get('key', function(key) {
+      console.log(key);
+      expect(key).to.be.a('string');
+      expect(key).to.equal('value');
+      done();
+    });
+  });
+});
+
 describe('PickleDB#drop', function() {
-  it('should remove the file', function(done) {
+  it('should remove the json file', function(done) {
     db.drop();
     setTimeout(function() {
       fs.exists('db.json', function(exists) {
@@ -61,3 +72,4 @@ describe('PickleDB#drop', function() {
     }, 50);
   });
 });
+
