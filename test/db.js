@@ -21,14 +21,24 @@ describe('PickleDB#constructor', function() {
       }, 50);
     });
   });
+
+  it('should have properties', function() {
+    expect(PickleDB).to.respondTo('get');
+    expect(db).to.respondTo('get');
+    expect(PickleDB).to.respondTo('set');
+    expect(db).to.respondTo('set');
+    expect(PickleDB).to.respondTo('update');
+    expect(db).to.respondTo('update');
+    expect(PickleDB).to.respondTo('populate');
+    expect(db).to.respondTo('populate');
+    expect(PickleDB).to.respondTo('remove');
+    expect(db).to.respondTo('remove');
+    expect(PickleDB).to.respondTo('drop');
+    expect(db).to.respondTo('drop');
+  });
 });
 
 describe('PickleDB#set', function() {
-  it('should have set property', function() {
-    expect(PickleDB).to.respondTo('set');
-    expect(db).to.respondTo('set');
-  });
-
   it('should set a key in the database', function(done) {
     db.set('key', 'value', function() {
       fs.readFile('db.json', 'utf8', function(err, data) {
@@ -97,6 +107,44 @@ describe('PickleDB#remove', function() {
     expect(db.cacheObject).to.not.have.any.keys('key');
     expect(db.cacheObject).to.not.eql({key: 'value'});
     expect(db.cacheObject.key).to.not.exist;
+  });
+});
+
+describe('PickleDB#update', function() {
+  it('should push an element in the array', function(done) {
+    db.set('alphabet', ['a', 'b', 'c'], function() {
+      db.update('alphabet:push', 'd', function(alphabet) {
+        expect(alphabet).to.be.an('array');
+        expect(alphabet).to.include('d');
+        expect(alphabet).to.eql(['a', 'b', 'c', 'd']);
+        expect(alphabet).to.eql(db.cacheObject.alphabet);
+        done();
+      });
+    });
+  });
+
+  it('should create an array with one element when array does not exist', function(done) {
+    db.update('users:push', 'testuser1', function(users) {
+      expect(users).to.be.an('array');
+      expect(users).to.include('testuser1');
+      expect(users).to.eql(['testuser1']);
+      expect(users).to.eql(db.cacheObject.users);
+      done();
+    });
+  });
+
+  it('should add and subtract the number', function(done) {
+    db.set('num', 0, function() {
+      db.update('num:add', 1, function(num) {
+        expect(num).to.be.a('number');
+        expect(num).to.equal(1);
+        db.update('num:minus', 1, function(num) {
+          expect(num).to.be.a('number');
+          expect(num).to.equal(0);
+          done();
+        });
+      });
+    });
   });
 });
 
