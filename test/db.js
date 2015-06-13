@@ -67,6 +67,19 @@ describe('PickleDB#get', function() {
       done();
     });
   });
+
+  it('should get all keys', function(done) {
+    db.set('foo', 'bar', function() {
+      db.get(function(keys) {
+        expect(keys).to.be.an('object');
+        expect(keys).to.have.any.keys('key', 'foo');
+        expect(keys.key).to.be.eql('value');
+        expect(keys.foo).to.be.eql('bar');
+        expect(keys).to.be.eql(db.cacheObject);
+        done();
+      });    
+    });
+  });
 });
 
 describe('PickleDB#remove', function() {
@@ -87,15 +100,34 @@ describe('PickleDB#remove', function() {
   });
 });
 
-describe('PickleDB#drop', function() {
-  it('should remove the json file', function(done) {
-    db.drop();
-    setTimeout(function() {
-      fs.exists('db.json', function(exists) {
-        expect(exists).to.be.false;
+describe('PickleDB#populate', function() {
+  it('should add all these keys to the database', function(done) {
+    db.populate({a: 1, b: 2, c: 3}, function() {
+      db.get(function(keys) {
+        expect(keys).to.be.an('object');
+        expect(keys).to.have.any.keys('key', 'a', 'b', 'c');
+        expect(keys.a).to.be.eql(1);
+        expect(keys.b).to.be.eql(2);
+        expect(keys.c).to.be.eql(3);
+        expect(keys).to.be.eql(db.cacheObject);
         done();
       });
-    }, 50);
+    });
+  });
+});
+
+describe('PickleDB#drop', function() {
+  it('should remove the json file', function(done) {
+    db.get(function(object) {
+      console.log(object); 
+      db.drop();
+      setTimeout(function() {
+        fs.exists('db.json', function(exists) {
+          expect(exists).to.be.false;
+          done();
+        });
+      }, 50);
+    });
   });
 });
 
