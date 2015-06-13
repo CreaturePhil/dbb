@@ -53,11 +53,37 @@ describe('PickleDB#set', function() {
 describe('PickleDB#get', function() {
   it('should get a key', function(done) {
     db.get('key', function(key) {
-      console.log(key);
       expect(key).to.be.a('string');
       expect(key).to.equal('value');
       done();
     });
+  });
+
+  it('should get not get a key', function(done) {
+    db.get('key1', function(key) {
+      expect(key).to.not.be.a('string');
+      expect(key).to.not.equal('value');
+      expect(key).to.not.exist;
+      done();
+    });
+  });
+});
+
+describe('PickleDB#remove', function() {
+  it('should remove a key', function(done) {
+    db.remove('key', function() {
+      db.get('key', function(key) {
+        expect(key).to.not.exist;
+        done();
+      });
+    });
+  });
+
+  it('should not have key in cacheObject', function() {
+    expect(db.cacheObject).to.be.an('object');  
+    expect(db.cacheObject).to.not.have.any.keys('key');
+    expect(db.cacheObject).to.not.eql({key: 'value'});
+    expect(db.cacheObject.key).to.not.exist;
   });
 });
 
