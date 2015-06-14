@@ -31,10 +31,6 @@ To retreive the data, simply do:
 db('money').get('phil');
 db().get('posts')[0];
 ```
-// TODO: add optional parameter db().get('posts', {title: 'chidori is amazing'}) to query for objects.
-// possible update for set for `:` syntax
-db('money').set('phil:add', 2);
-db('money').update('phil').add(2);
 
 # Limits
 
