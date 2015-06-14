@@ -9,7 +9,7 @@ describe('Chidori#constructor', function() {
     db = Chidori('db.json');
     expect(db).to.be.a('function');
     expect(db()).to.be.an('object');
-    expect(db()).to.have.any.keys('jsonFile', 'cache', 'collection');
+    expect(db()).to.have.any.keys('jsonFile', 'object', 'collection');
     expect(db().collection).to.be.a('string');
     expect(db().collection).to.equal('default');
     expect(db()).to.respondTo('get');
