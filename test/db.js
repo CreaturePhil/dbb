@@ -64,6 +64,15 @@ describe('Chidori#getAll', function() {
     expect(users).to.be.eql(data);
   });
 
+});
+
+describe('Chidori#remove', function() {
+  it('should remove the key', function() {
+    db('users').remove('testuser1');
+    var user = db('users').get('testuser1');
+    expect(user).to.be.undefined;
+  });
+
   after(function() {
     fs.unlink('db.json', function(err) {
       if (err) throw new Error(err);
