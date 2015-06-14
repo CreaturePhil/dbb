@@ -22,6 +22,13 @@ describe('Chidori#constructor', function() {
       done();
     });
   });
+
+  it('should read from the json database', function() {
+    db = new Chidori('db.json');
+    expect(db).to.be.a('function');
+    expect(db()).to.be.an('object');
+    expect(db()).to.have.any.keys('jsonFile', 'object', 'collection');
+  });
 });
 
 describe('Chidori#set', function() {
