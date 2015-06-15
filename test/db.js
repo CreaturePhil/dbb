@@ -89,3 +89,21 @@ describe('db#removeSync', function() {
     expect(key).to.not.equal('value');
   });
 });
+
+describe('db#getAll', function() {
+  it('should get the whole collection', function(done) {
+    db().getAll(function(err, doc) {
+      if (err) return done(err);
+      expect(doc).to.be.a('object');
+      console.log(doc);
+      done();
+    });
+  });
+});
+
+describe('db#getAllSync', function() {
+  it('should get the whole collection', function() {
+    var doc = db().getAllSync();
+    expect(doc).to.be.a('object');
+  });
+});
