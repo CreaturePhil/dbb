@@ -20,8 +20,8 @@ An easy to use database.
 
 ### Collections
 
-* [`find`](#find)
-* [`findSync`](#findSync)
+* [`find` *WIP*](#find)
+* [`findSync` *WIP*](#findSync)
 * [`findAll`](#findAll)
 * [`findAllSync`](#findAllSync)
 * [`insert`](#insert)
