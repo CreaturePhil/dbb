@@ -2,13 +2,15 @@
 
 ## API
 
-* [`connect`](#connect)
+* [Create Database](#create)
+* [Querying Database](#query)
 
 ### Documents
-// ALPHABETTIZE
 
 * [`get`](#get)
 * [`getSync`](#getSync)
+* [`getAll`](#getAll)
+* [`getAllSync`](#getAllSync)
 * [`remove`](#remove)
 * [`removeSync`](#removeSync)
 * [`set`](#set)
@@ -18,11 +20,17 @@
 
 * [`find`](#find)
 * [`findSync`](#findSync)
+* [`findAll`](#findAll)
+* [`findAllSync`](#findAllSync)
 * [`insert`](#insert)
 * [`insertSync`](#insertSync)
 
-<a name="connect" />
-### connect(file)
+<a name="create" />
+### Create Database
+
+```js
+new Database(file);
+```
 
 Specify what JSON file to use. If it doesn't exist, the JSON file will be
 created.
@@ -34,8 +42,53 @@ __Arguments__
 __Examples__
 
 ```js
-db.connect('db.json');
+var Database = require('db');
+var db = new Database('db.json');
 ```
+
+<a name="query" />
+### Query Database
+
+```js
+db(collection)
+```
+
+__Arguments__
+
+1. `collection` (String): Specify what collection to query.
+
+__Returns__
+
+(Object): Methods to use to query the database.
+
+__Examples__
+
+```js
+db(); // default
+```
+
+In json:
+
+```js
+{
+  "default": {}
+}
+```
+
+```js
+db('users');
+```
+
+In json:
+
+```js
+{
+  "users": {}
+}
+```
+
+Note: The collection defaults to an `Object` but when inserting or finding, it
+will convert to an `array`.
 
 ## Documents
 
@@ -53,7 +106,7 @@ the JSON file has finished, or an error occurs. Value is the key's value.
 __Examples__
 
 ```js
-db.get('key', function(err, value) {
+db().get('key', function(err, value) {
   if (err) throw err;
   // do something with value
 });
@@ -75,8 +128,44 @@ __Returns__
 __Examples__
 
 ```js
-var key = db.get('key');
+var key = db().get('key');
 // do something with key
+```
+
+<a name="getAll" />
+### getAll([callback])
+
+Get the whole object in the database.
+
+__Arguments__
+
+1. `callback(err, object)` (Function): A callback which is called when reading
+the JSON file has finished, or an error occurs.
+
+__Examples__
+```js
+db().getAll(function(object) {
+  // do something with the object.
+});
+```
+
+<a name="getAllSync" />
+### getAllSync([callback])
+
+Get the whole object in the database.
+
+__Arguments__
+
+1. `callback(err, object)` (Function): A callback which is called when reading
+the JSON file has finished, or an error occurs.
+
+__Returns__
+
+(Object): Object in the database that holds all the key-value pairs.
+
+__Examples__
+```js
+var object = db().getAllSync();
 ```
 
 <a name="remove" />
@@ -93,7 +182,7 @@ writing to the JSON file has finished, or an error occurs.
 __Examples__
 
 ```js
-db.remove('key', function(err) {
+db().remove('key', function(err) {
   if (err) throw err;
   // key is now remove from the database
 });
@@ -111,7 +200,7 @@ __Arguments__
 __Examples__
 
 ```js
-db.removeSync('key');
+db().removeSync('key');
 ```
 
 <a name="set" />
@@ -129,7 +218,7 @@ writing to the JSON file has finished, or an error occurs.
 __Examples__
 
 ```js
-db.set('key', 'value', function(err, value) {
+db().set('key', 'value', function(err, value) {
   if (err) throw err;
   // key is now save in the database
   // do something with value
@@ -150,7 +239,7 @@ the JSON file has finished, or an error occurs. Value is the key's value.
 __Examples__
 
 ```js
-db.setSync('key', 'value');
+db().setSync('key', 'value');
 ```
 
 ## Collections
@@ -170,13 +259,13 @@ reading to the JSON file has finished, or an error occurs. Doc is the document
 __Examples__
 
 ```js
-db.find({name: 'Phil'}, function(err, doc) {
+db().find({name: 'Phil'}, function(err, doc) {
   if (err) throw err;
   // do something with doc
 });
 ```
 <a name="findSync" />
-### find(document, [callback])
+### findSync(document, [callback])
 
 Synchronous `find`.
 
@@ -186,12 +275,46 @@ __Arguments__
 
 __Returns__
 
-(Object): Document
+(Object): Document.
 
 __Examples__
 
 ```js
-var phil = db.findSync({name: 'Phil'});
+var phil = db().findSync({name: 'Phil'});
+```
+
+<a name="findAll" />
+### findAll([callback])
+
+Get the whole collection in the database.
+
+__Arguments__
+
+1. `callback(err, docs)` (Function): A callback which is called when
+reading to the JSON file has finished, or an error occurs. Docs is an array.
+
+__Examples__
+
+```js
+db().findAll(function(err, docs) {
+  if (err) throw err;
+  // do something with docs
+});
+```
+
+<a name="findAllSync" />
+### findAllSync()
+
+Synchronous `findAll`.
+
+__Returns__
+
+(Array): Collection of docs.
+
+__Examples__
+
+```js
+var docs = db().getAll();
 ```
 
 <a name="insert" />
@@ -209,7 +332,7 @@ inserted.
 __Examples__
 
 ```js
-db.insert({name: 'Phil', email: 'birkal@outlook.com'}, function(err, doc) {
+db().insert({name: 'Phil', email: 'birkal@outlook.com'}, function(err, doc) {
   if (err) throw err;
   // do something with doc
 });
@@ -227,5 +350,5 @@ __Arguments__
 __Examples__
 
 ```js
-db.insert({name: 'Phil', email: 'birkal@outlook.com'});
+db().insert({name: 'Phil', email: 'birkal@outlook.com'});
 ```
