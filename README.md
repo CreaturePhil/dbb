@@ -1,4 +1,4 @@
-# db
+# dbb
 
 An easy to use database.
 
@@ -44,7 +44,7 @@ __Arguments__
 __Examples__
 
 ```js
-var Database = require('db');
+var Database = require('dbb');
 var db = new Database('db.json');
 ```
 
