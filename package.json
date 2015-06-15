@@ -1,15 +1,27 @@
 {
   "name": "db",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "An easy to use database.",
+  "author": "Philip La <birkal@outlook.com>",
+  "main": "lib/index.js",
   "scripts": {
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --timeout=10000",
     "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --timeout=10000",
     "test": "grunt && mocha --reporter=spec --timeout=10000"
   },
-  "author": "",
+  "keywords": [
+    "web",
+    "database",
+    "json",
+    "easy",
+    "simple",
+    "simplicity"
+  ],
   "license": "MIT",
+  "repository": "creaturephil/db",
+  "dependencies": {
+    "uuid": "^2.0.1"
+  },
   "devDependencies": {
     "chai": "^3.0.0",
     "grunt": "^0.4.5",
@@ -20,7 +32,7 @@
     "load-grunt-tasks": "^3.1.0",
     "mocha": "^2.2.5"
   },
-  "dependencies": {
-    "uuid": "^2.0.1"
+  "engines": {
+    "node": ">= 0.10"
   }
 }

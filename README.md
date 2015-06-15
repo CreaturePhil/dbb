@@ -346,3 +346,7 @@ __Examples__
 ```js
 db().insert({name: 'Phil', email: 'birkal@outlook.com'});
 ```
+
+# LICENSE
+
+[MIT](LICENSE)
