@@ -18,7 +18,7 @@
     "simplicity"
   ],
   "license": "MIT",
-  "repository": "creaturephil/db",
+  "repository": "creaturephil/dbb",
   "dependencies": {
     "uuid": "^2.0.1"
   },

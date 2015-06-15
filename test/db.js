@@ -4,7 +4,7 @@ var Database = require('../lib');
 
 var db;
 
-describe('db#constructor', function() {
+describe('dbb#constructor', function() {
   it('should create the database', function() {
     db = new Database('db.json');
     expect(db).to.be.an('function');
@@ -22,7 +22,7 @@ describe('db#constructor', function() {
   });
 });
 
-describe('db#set', function() {
+describe('dbb#set', function() {
   it('should set a key', function(done) {
     db().set('key', 'value', function() {
       fs.readFile('db.json', 'utf8', function(err, data) {
@@ -37,7 +37,7 @@ describe('db#set', function() {
   });
 });
 
-describe('db#setSync', function() {
+describe('dbb#setSync', function() {
   it('should set a key synchronously', function() {
     db().setSync('testuser', 10);
     var json = JSON.parse(fs.readFileSync('db.json', 'utf8'));
@@ -47,7 +47,7 @@ describe('db#setSync', function() {
   });
 });
 
-describe('db#get', function() {
+describe('dbb#get', function() {
   it('should get a key', function(done) {
     db().get('key', function(err, key) {
       if (err) return done(err);
@@ -70,7 +70,7 @@ describe('db#get', function() {
   });
 });
 
-describe('db#getSync', function() {
+describe('dbb#getSync', function() {
   it('should get a key synchronously', function() {
     var key = db().getSync('key');
     expect(key).to.be.a('string');
@@ -78,7 +78,7 @@ describe('db#getSync', function() {
   });
 });
 
-describe('db#remove', function() {
+describe('dbb#remove', function() {
   it('should remove a key', function(done) {
     db().remove('key', function(err) {
       if (err) return done(err);
@@ -94,7 +94,7 @@ describe('db#remove', function() {
   });
 });
 
-describe('db#removeSync', function() {
+describe('dbb#removeSync', function() {
   it('should remove a key synchronously', function() {
     db().removeSync('key');
     var key = db().getSync('key');
@@ -103,7 +103,7 @@ describe('db#removeSync', function() {
   });
 });
 
-describe('db#getAll and db#findAllSync', function() {
+describe('dbb#getAll and db#findAllSync', function() {
   it('should get the whole collection', function(done) {
     db().getAll(function(err, doc) {
       if (err) return done(err);
@@ -117,7 +117,7 @@ describe('db#getAll and db#findAllSync', function() {
   });
 });
 
-describe('db#getAllSync and db#findALlSync', function() {
+describe('dbb#getAllSync and db#findALlSync', function() {
   it('should get the whole collection', function() {
     var doc = db().getAllSync();
     expect(doc).to.be.a('object');
@@ -126,7 +126,7 @@ describe('db#getAllSync and db#findALlSync', function() {
   });
 });
 
-describe('db#insert', function() {
+describe('dbb#insert', function() {
   it('should insert a document', function(done) {
     db('users').insert({name: 'phil'}, function(err) {
       if (err) return done(err);
@@ -158,7 +158,7 @@ describe('db#insert', function() {
   });
 });
 
-describe('db#insertSync', function() {
+describe('dbb#insertSync', function() {
   it('should insert a document synchronously', function() {
     db('users').insertSync({name: 'jack'});
     var json = JSON.parse(fs.readFileSync('db.json', 'utf8'));
