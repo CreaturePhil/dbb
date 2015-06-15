@@ -24,7 +24,7 @@ describe('db#constructor', function() {
 describe('db#set', function() {
   it('should set a key', function(done) {
     db().set('key', 'value', function() {
-      fs.readFile('db.json', function(err, data) {
+      fs.readFile('db.json', 'utf8', function(err, data) {
         if (err) return done(err); 
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
@@ -36,6 +36,16 @@ describe('db#set', function() {
   });
 });
 
+describe('db#setSync', function() {
+  it('should set a key synchronously', function() {
+    db().setSync('testuser', 10);
+    var json = JSON.parse(fs.readFileSync('db.json', 'utf8'));
+    expect(json).to.be.an('object');
+    expect(json['default'].testuser).to.be.a('number');
+    expect(json['default'].testuser).to.equal(10);
+  });
+});
+
 describe('db#get', function() {
   it('should get a key', function(done) {
     db().get('key', function(err, key) {
@@ -44,5 +54,13 @@ describe('db#get', function() {
       expect(key).to.equal('value');
       done();
     });
+  }); 
+});
+
+describe('db#getSync', function() {
+  it('should get a key synchronously', function() {
+    var key = db().getSync('key');
+    expect(key).to.be.a('string');
+    expect(key).to.equal('value');
   }); 
 });
