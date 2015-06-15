@@ -138,6 +138,19 @@ describe('db#insert', function() {
       });
     });
   });
+
+  it('should override the document', function(done) {
+    db('users').set('override', 'bye bye', function() {
+      fs.readFile('db.json', 'utf8', function(err, data) {
+        if (err) return done(err); 
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json.users.override).to.be.a('string');
+        expect(json.users.override).to.equal('bye bye');
+        done();
+      });
+    });
+  });
 });
 
 describe('db#insertSync', function() {
@@ -146,9 +159,18 @@ describe('db#insertSync', function() {
     var json = JSON.parse(fs.readFileSync('db.json', 'utf8'));
     expect(json).to.be.an('object');
     expect(json.users).to.be.a('array');
-    expect(json.users.length).to.equal(2);
-    expect(json.users[1]).to.be.an('object');
-    expect(json.users[1]._id).to.be.a('string');
-    expect(json.users[1]).to.have.deep.property('name', 'jack');
+    expect(json.users.length).to.equal(1);
+    expect(json.users[0]).to.be.an('object');
+    expect(json.users[0]._id).to.be.a('string');
+    expect(json.users[0]).to.have.deep.property('name', 'jack');
+  });
+
+  it('should override the document synchronous', function(done) {
+    db('users').setSync('override', 'bye bye');
+    var json = JSON.parse(fs.readFileSync('db.json', 'utf8'));
+    expect(json).to.be.an('object');
+    expect(json.users.override).to.be.a('string');
+    expect(json.users.override).to.equal('bye bye');
+    done();
   });
 });
