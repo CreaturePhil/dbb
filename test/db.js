@@ -20,3 +20,29 @@ describe('db#constructor', function() {
     });
   });
 });
+
+describe('db#set', function() {
+  it('should set a key', function(done) {
+    db().set('key', 'value', function() {
+      fs.readFile('db.json', function(err, data) {
+        if (err) return done(err); 
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json['default'].key).to.be.a('string');
+        expect(json['default'].key).to.equal('value');
+        done();
+      });
+    });
+  });
+});
+
+describe('db#get', function() {
+  it('should get a key', function(done) {
+    db().get('key', function(err, key) {
+      if (err) return done(err);
+      expect(key).to.be.a('string');
+      expect(key).to.equal('value');
+      done();
+    });
+  }); 
+});
