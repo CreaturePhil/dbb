@@ -1,5 +1,7 @@
 # db
 
+An easy to use database.
+
 ## API
 
 * [Create Database](#create)
@@ -65,30 +67,21 @@ __Examples__
 
 ```js
 db(); // default
-```
-
-In json:
-
-```js
-{
-  "default": {}
-}
-```
-
-```js
 db('users');
+db('posts').insert({title: 'hello world!'}); // converts to array
 ```
 
 In json:
 
 ```js
 {
-  "users": {}
+  "default": {},
+  "users": {},
+  "posts": [
+    {"title": "hello world!"}
+  ]
 }
 ```
-
-Note: The collection defaults to an `Object` but when inserting or finding, it
-will convert to an `array`.
 
 ## Documents
 
@@ -166,6 +159,7 @@ __Returns__
 __Examples__
 ```js
 var object = db().getAllSync();
+// do something with object
 ```
 
 <a name="remove" />

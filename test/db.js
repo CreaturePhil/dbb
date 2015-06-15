@@ -103,20 +103,25 @@ describe('db#removeSync', function() {
   });
 });
 
-describe('db#getAll', function() {
+describe('db#getAll and db#findAllSync', function() {
   it('should get the whole collection', function(done) {
     db().getAll(function(err, doc) {
       if (err) return done(err);
       expect(doc).to.be.a('object');
       console.log(doc);
-      done();
+      db().findAll(function(err, doc) {
+        expect(doc).to.be.a('object');
+        done();
+      });
     });
   });
 });
 
-describe('db#getAllSync', function() {
+describe('db#getAllSync and db#findALlSync', function() {
   it('should get the whole collection', function() {
     var doc = db().getAllSync();
+    expect(doc).to.be.a('object');
+    doc = db().findAllSync();
     expect(doc).to.be.a('object');
   });
 });
