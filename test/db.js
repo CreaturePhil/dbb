@@ -120,3 +120,35 @@ describe('db#getAllSync', function() {
     expect(doc).to.be.a('object');
   });
 });
+
+describe('db#insert', function() {
+  it('should insert a document', function(done) {
+    db('users').insert({name: 'phil'}, function(err) {
+      if (err) return done(err);
+      fs.readFile('db.json', 'utf8', function(err, data) {
+        if (err) return done(err); 
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json.users).to.be.a('array');
+        expect(json.users.length).to.equal(1);
+        expect(json.users[0]).to.be.an('object');
+        expect(json.users[0]._id).to.be.a('string');
+        expect(json.users[0]).to.have.deep.property('name', 'phil');
+        done();
+      });
+    });
+  });
+});
+
+describe('db#insertSync', function() {
+  it('should insert a document synchronously', function() {
+    db('users').insertSync({name: 'jack'});
+    var json = JSON.parse(fs.readFileSync('db.json', 'utf8'));
+    expect(json).to.be.an('object');
+    expect(json.users).to.be.a('array');
+    expect(json.users.length).to.equal(2);
+    expect(json.users[1]).to.be.an('object');
+    expect(json.users[1]._id).to.be.a('string');
+    expect(json.users[1]).to.have.deep.property('name', 'jack');
+  });
+});
