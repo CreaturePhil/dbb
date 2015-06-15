@@ -64,3 +64,28 @@ describe('db#getSync', function() {
     expect(key).to.equal('value');
   }); 
 });
+
+describe('db#remove', function() {
+  it('should remove a key', function(done) {
+    db().remove('key', function(err) {
+      if (err) return done(err);
+      fs.readFile('db.json', 'utf8', function(err, data) {
+        if (err) return done(err); 
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json['default'].key).to.not.be.a('string');
+        expect(json['default'].key).to.not.equal('value');
+        done();
+      });
+    });
+  });
+});
+
+describe('db#removeSync', function() { 
+  it('should remove a key synchronously', function() {
+    db().removeSync('key');
+    var key = db().getSync('key');
+    expect(key).to.not.be.a('string');
+    expect(key).to.not.equal('value');
+  });
+});
