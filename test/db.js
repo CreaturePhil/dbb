@@ -26,7 +26,7 @@ describe('db#set', function() {
   it('should set a key', function(done) {
     db().set('key', 'value', function() {
       fs.readFile('db.json', 'utf8', function(err, data) {
-        if (err) return done(err); 
+        if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json['default'].key).to.be.a('string');
@@ -55,7 +55,7 @@ describe('db#get', function() {
       expect(key).to.equal('value');
       done();
     });
-  }); 
+  });
 
   it('should get a missing key', function(done) {
     db('users').get('missing key', function(err, key) {
@@ -75,7 +75,7 @@ describe('db#getSync', function() {
     var key = db().getSync('key');
     expect(key).to.be.a('string');
     expect(key).to.equal('value');
-  }); 
+  });
 });
 
 describe('db#remove', function() {
@@ -83,7 +83,7 @@ describe('db#remove', function() {
     db().remove('key', function(err) {
       if (err) return done(err);
       fs.readFile('db.json', 'utf8', function(err, data) {
-        if (err) return done(err); 
+        if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json['default'].key).to.not.be.a('string');
@@ -94,7 +94,7 @@ describe('db#remove', function() {
   });
 });
 
-describe('db#removeSync', function() { 
+describe('db#removeSync', function() {
   it('should remove a key synchronously', function() {
     db().removeSync('key');
     var key = db().getSync('key');
@@ -126,7 +126,7 @@ describe('db#insert', function() {
     db('users').insert({name: 'phil'}, function(err) {
       if (err) return done(err);
       fs.readFile('db.json', 'utf8', function(err, data) {
-        if (err) return done(err); 
+        if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json.users).to.be.a('array');
@@ -142,7 +142,7 @@ describe('db#insert', function() {
   it('should override the document', function(done) {
     db('users').set('override', 'bye bye', function() {
       fs.readFile('db.json', 'utf8', function(err, data) {
-        if (err) return done(err); 
+        if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json.users.override).to.be.a('string');
