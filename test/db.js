@@ -16,6 +16,7 @@ describe('db#constructor', function() {
   it('should have the file', function(done) {
     fs.exists('db.json', function(exists) {
       expect(exists).to.be.true;
+      db = new Database('db.json');
       done();
     });
   });
@@ -55,6 +56,18 @@ describe('db#get', function() {
       done();
     });
   }); 
+
+  it('should get a missing key', function(done) {
+    db('users').get('missing key', function(err, key) {
+      if (err) return done(err);
+      expect(key).to.not.exist;
+      db().get('missing key', function(err, key) {
+        if (err) return done(err);
+        expect(key).to.not.exist;
+        done();
+      });
+    });
+  });
 });
 
 describe('db#getSync', function() {
