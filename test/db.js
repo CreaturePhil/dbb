@@ -78,37 +78,11 @@ describe('dbb#getSync', function() {
   });
 });
 
-describe('dbb#remove', function() {
-  it('should remove a key', function(done) {
-    db().remove('key', function(err) {
-      if (err) return done(err);
-      fs.readFile('db.json', 'utf8', function(err, data) {
-        if (err) return done(err);
-        var json = JSON.parse(data);
-        expect(json).to.be.an('object');
-        expect(json['default'].key).to.not.be.a('string');
-        expect(json['default'].key).to.not.equal('value');
-        done();
-      });
-    });
-  });
-});
-
-describe('dbb#removeSync', function() {
-  it('should remove a key synchronously', function() {
-    db().removeSync('key');
-    var key = db().getSync('key');
-    expect(key).to.not.be.a('string');
-    expect(key).to.not.equal('value');
-  });
-});
-
 describe('dbb#getAll and db#findAllSync', function() {
   it('should get the whole field', function(done) {
     db().getAll(function(err, doc) {
       if (err) return done(err);
       expect(doc).to.be.a('object');
-      console.log(doc);
       db().findAll(function(err, doc) {
         expect(doc).to.be.a('object');
         done();
@@ -194,5 +168,54 @@ describe('dbb#find', function() {
       expect(doc).to.have.any.keys('name', '_id');
       done();
     });
+  });
+});
+
+describe('dbb#remove', function() {
+  it('should remove a key', function(done) {
+    db().remove('key', function(err) {
+      if (err) return done(err);
+      fs.readFile('db.json', 'utf8', function(err, data) {
+        if (err) return done(err);
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json['default'].key).to.not.be.a('string');
+        expect(json['default'].key).to.not.equal('value');
+        done();
+      });
+    });
+  });
+
+  it('should remove a document', function(done) {
+    db('users').remove({name: 'phil'}, function(err) {
+      if (err) return done(err);
+      fs.readFile('db.json', 'utf8', function(err, data) {
+        if (err) return done(err);
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json.users).to.be.an('array');
+        expect(json.users.length).to.equal(2);
+        done();
+      });
+    });
+  });
+});
+
+describe('dbb#removeSync', function() {
+  it('should remove a key synchronously', function() {
+    db().removeSync('key');
+    var key = db().getSync('key');
+    expect(key).to.not.be.a('string');
+    expect(key).to.not.equal('value');
+  });
+
+  it('should remove a document synchronously', function() {
+    db('users').removeSync({name: 'jack'});
+    var key = db('users').findSync({name: 'jack'});
+    var collection = db('users').findAllSync();
+    expect(key).to.not.be.a('string');
+    expect(key).to.not.equal('value');
+    expect(collection).to.be.an('array');
+    expect(collection.length).to.equal(1);
   });
 });
