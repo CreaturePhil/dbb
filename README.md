@@ -13,8 +13,6 @@ An easy to use database.
 * [`getSync`](#getSync)
 * [`getAll`](#getAll)
 * [`getAllSync`](#getAllSync)
-* [`remove`](#remove)
-* [`removeSync`](#removeSync)
 * [`set`](#set)
 * [`setSync`](#setSync)
 
@@ -26,12 +24,14 @@ An easy to use database.
 * [`findAllSync`](#findAllSync)
 * [`insert`](#insert)
 * [`insertSync`](#insertSync)
+* [`remove`](#remove)
+* [`removeSync`](#removeSync)
 
 <a name="create" />
 ### Create Database
 
 ```js
-Database(file);
+DBB(file);
 ```
 
 Specify what JSON file to use. If it doesn't exist, the JSON file will be
@@ -160,41 +160,6 @@ __Examples__
 ```js
 var object = db().getAllSync();
 // do something with object
-```
-
-<a name="remove" />
-### remove(key, [callback])
-
-Remove a key in the database.
-
-__Arguments__
-
-1. `key` (String): Name of the key.
-2. `callback(err)` (Function): *Optional* A callback which is called when
-writing to the JSON file has finished, or an error occurs.
-
-__Examples__
-
-```js
-db().remove('key', function(err) {
-  if (err) throw err;
-  // key is now remove from the database
-});
-```
-
-<a name="removeSync" />
-### removeSync(key)
-
-Synchronous `sync`. Returns undefined.
-
-__Arguments__
-
-1. `key` (String): Name of the key.
-
-__Examples__
-
-```js
-db().removeSync('key');
 ```
 
 <a name="set" />
@@ -345,6 +310,46 @@ __Examples__
 
 ```js
 db().insert({name: 'Phil', email: 'birkal@outlook.com'});
+```
+
+<a name="remove" />
+### remove(key, [callback])
+
+Remove a key in the database.
+
+__Arguments__
+
+1. `key` (String): Name of the key.
+2. `callback(err)` (Function): *Optional* A callback which is called when
+writing to the JSON file has finished, or an error occurs.
+
+__Examples__
+
+```js
+db().remove('key', function(err) {
+  if (err) throw err;
+  // key is now remove from the database
+});
+db('users').remove({name: 'Phil'}, function(err) {
+  if (err) throw err;
+  // document is now remove from the database
+});
+```
+
+<a name="removeSync" />
+### removeSync(key)
+
+Synchronous `sync`. Returns undefined.
+
+__Arguments__
+
+1. `key` (String): Name of the key.
+
+__Examples__
+
+```js
+db().removeSync('key');
+db('users').removeSync({name: 'Phil'});
 ```
 
 # License

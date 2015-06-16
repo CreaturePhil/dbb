@@ -1,12 +1,12 @@
 var fs = require('fs');
 var expect = require('chai').expect;
-var Database = require('../lib');
+var DBB = require('../lib');
 
 var db;
 
 describe('dbb#constructor', function() {
   it('should create the database', function() {
-    db = new Database('db.json');
+    db = DBB('db.json');
     expect(db).to.be.an('function');
     expect(db()).to.be.an('object');
     expect(db().file).to.equal('db.json');
@@ -16,7 +16,7 @@ describe('dbb#constructor', function() {
   it('should have the file', function(done) {
     fs.exists('db.json', function(exists) {
       expect(exists).to.be.true;
-      db = new Database('db.json');
+      db = DBB('db.json');
       done();
     });
   });
