@@ -50,7 +50,8 @@ db('posts').find({title: 'DBB is amazing'}, function(err, post) {
 * [Limits](#limits)
 * [License](#license)
 
-# Installation
+<a name="installation" />
+## Installation
 
 ```bash
 $ npm install dbb --save
