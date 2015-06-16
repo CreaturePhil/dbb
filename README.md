@@ -9,7 +9,7 @@
 
 An easy to use database.
 
-# Example
+## Example
 
 ```js
 var DBB = require('dbb');
@@ -408,13 +408,13 @@ db('users').removeSync({name: 'Phil'});
 ```
 
 <a name="limits" />
-# Limits
+## Limits
 
 DBB is a convenient method for storing data without setting up a database server.
 However, if you need high performance and scalability more than simplicity, 
 you should stick to databases like [MongoDB](https://www.mongodb.org).
 
 <a name="license" />
-# License
+## License
 
 [MIT](LICENSE)
