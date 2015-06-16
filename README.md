@@ -43,9 +43,10 @@ db('posts').find({title: 'DBB is amazing'}, function(err, post) {
 });
 ```
 
-# Table of Contents
+## Table of Contents
 
 * [Installation](#installation)
+* [Guide](#guide)
 * [API](#api)
 * [Limits](#limits)
 * [License](#license)
@@ -56,6 +57,42 @@ db('posts').find({title: 'DBB is amazing'}, function(err, post) {
 ```bash
 $ npm install dbb --save
 ```
+
+<a name="guide" />
+## Guide
+
+DBB stores data in a field which can be either be an object or an array.
+
+```js
+{
+  "field": {},
+  "field": []
+}
+```
+
+`get` and `set` method are for a document, also called an object.
+
+```js
+// document
+"field": {
+  "key": "value",
+  "key1": 1,
+  "key2": 2
+}
+```
+
+`find`, `insert`, and `save are for a collection, which is basically an array.`
+
+```js
+// collection
+"field": [
+  { name: "phil", age: 7 },
+  { name: "jack", age: 20 },
+  { name: "steve", age: 99 }
+]
+```
+
+For each DBB's method, there is a synchronous version of it. For example, `get` and `getSync` or `find` and `findSync`.
 
 <a name="api" />
 ## API
