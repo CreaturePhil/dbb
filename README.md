@@ -31,7 +31,7 @@ An easy to use database.
 ### Create Database
 
 ```js
-new Database(file);
+Database(file);
 ```
 
 Specify what JSON file to use. If it doesn't exist, the JSON file will be
@@ -45,7 +45,7 @@ __Examples__
 
 ```js
 var DBB = require('dbb');
-var db = new DBB('db.json');
+var db = DBB('db.json');
 ```
 
 <a name="query" />
