@@ -179,3 +179,20 @@ describe('dbb#insertSync', function() {
     done();
   });
 });
+
+describe('dbb#find', function() {
+  before(function() {
+    db('users').insertSync({name: 'phil'});
+    db('users').insertSync({name: 'jack'});
+    db('users').insertSync({name: 'nick'});
+  });
+
+  it('should find an object', function(done) {
+    db('users').find({name: 'phil'}, function(err, doc) {
+      if (err) return done(err);
+      expect(doc).to.be.an('object');
+      expect(doc).to.have.any.keys('name', '_id');
+      done();
+    });
+  });
+});
