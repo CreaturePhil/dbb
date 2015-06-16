@@ -347,6 +347,6 @@ __Examples__
 db().insert({name: 'Phil', email: 'birkal@outlook.com'});
 ```
 
-# LICENSE
+# License
 
 [MIT](LICENSE)

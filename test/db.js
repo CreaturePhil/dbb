@@ -219,3 +219,26 @@ describe('dbb#removeSync', function() {
     expect(collection.length).to.equal(1);
   });
 });
+
+describe('dbb#save', function() {
+  it('should save document', function(done) {
+    db('users').find({name: 'phil'}, function(err, user) {
+      if (err) return done(err);
+      user.array = [];
+      user.email = 'phil@gmail.com';
+      db('users').save(user, function(err) {
+        if (err) return done(err);
+        done();
+      });
+    });
+  });
+});
+
+describe('dbb#saveSync', function() {
+  it('should save document synchronously', function() {
+    var user = db('users').findSync({name: 'phil'});
+    delete user.array;
+    user.age = 18;
+    db('users').saveSync(user);
+  });
+});
