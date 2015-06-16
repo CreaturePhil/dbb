@@ -9,8 +9,43 @@
 
 An easy to use database.
 
+# Example
+
+```js
+var DBB = require('dbb');
+var db = DBB('db.json');
+
+db('keys').set('key', 'value');
+db('posts').insert({ title: 'DBB is amazing' });
+```
+
+In `db.json`:
+
+```js
+{
+  "keys": {
+    "key": "value"
+  },
+  "posts": [
+    { "title": "DBB is amazing"  }
+  ]
+}
+```
+
+To query the data:
+
+```js
+db('keys').get('key', function(err, key) {
+  // do something with key
+});
+db('posts').find({title: 'DBB is amazing'}, function(err, post) {
+  // do something with post
+});
+```
+
 # Table of Contents
 
+* [Installation](#installation)
 * [API](#api)
 * [Limits](#limits)
 * [License](#license)
