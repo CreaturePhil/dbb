@@ -10,7 +10,7 @@ describe('dbb#constructor', function() {
     expect(db).to.be.an('function');
     expect(db()).to.be.an('object');
     expect(db().file).to.equal('db.json');
-    expect(db().collection).to.equal('default');
+    expect(db().field).to.equal('default');
   });
 
   it('should have the file', function(done) {
@@ -104,7 +104,7 @@ describe('dbb#removeSync', function() {
 });
 
 describe('dbb#getAll and db#findAllSync', function() {
-  it('should get the whole collection', function(done) {
+  it('should get the whole field', function(done) {
     db().getAll(function(err, doc) {
       if (err) return done(err);
       expect(doc).to.be.a('object');
