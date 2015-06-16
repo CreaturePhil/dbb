@@ -44,8 +44,8 @@ __Arguments__
 __Examples__
 
 ```js
-var Database = require('dbb');
-var db = new Database('db.json');
+var DBB = require('dbb');
+var db = new DBB('db.json');
 ```
 
 <a name="query" />
