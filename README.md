@@ -52,12 +52,12 @@ var db = new DBB('db.json');
 ### Query Database
 
 ```js
-db(collection)
+db(field)
 ```
 
 __Arguments__
 
-1. `collection` (String): Specify what collection to query.
+1. `field` (String): Specify what field to query.
 
 __Returns__
 
