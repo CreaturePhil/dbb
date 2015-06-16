@@ -20,7 +20,6 @@
   "license": "MIT",
   "repository": "creaturephil/dbb",
   "dependencies": {
-    "lodash": "^3.9.3",
     "lodash.find": "^3.2.1",
     "uuid": "^2.0.1"
   },
