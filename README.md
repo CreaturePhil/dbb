@@ -119,6 +119,8 @@ For each DBB's method, there is a synchronous version of it. For example, `get` 
 * [`insertSync`](#insertSync)
 * [`remove`](#remove)
 * [`removeSync`](#removeSync)
+* [`save`](#save)
+* [`saveSync`](#saveSync)
 
 <a name="create" />
 ### Create Database
@@ -443,6 +445,48 @@ __Examples__
 ```js
 db().removeSync('key');
 db('users').removeSync({name: 'Phil'});
+```
+
+<a name="save" />
+### save(document, [callback])
+
+Save a document in the database.
+
+__Arguments__
+
+1. `document` (*): Usually an object.
+2. `callback(err)` (Function): *Optional* A callback which is called when
+writing to the JSON file has finished, or an error occurs.
+
+__Examples__
+
+```js
+db('users').find({name: 'phil'}, function(err, user) {
+  if (err) throw err;
+  user.money++;
+  user.emails.push('hello@gmail.com');
+  user.posts = [];
+  db('users').save(user, function(err) {
+    if (err) throw err;
+  });
+});
+```
+
+<a name="saveSync" />
+### saveSync(document)
+
+Synchronous `save`. Returns undefined.
+
+__Arguments__
+
+1. `document` (*): Usually an object.
+
+__Examples__
+
+```js
+var user = db('users').find({name: 'phil'});
+user.name = 'jack';
+db('users').save(user);
 ```
 
 <a name="limits" />
