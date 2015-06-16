@@ -1,7 +1,27 @@
 # dbb
 
+[![Build Status](https://travis-ci.org/CreaturePhil/dbb.svg)](https://travis-ci.org/CreaturePhil/dbb)
+[![Dependency Status](https://david-dm.org/CreaturePhil/dbb.svg)](https://david-dm.org/CreaturePhil/dbb)
+[![devDependency Status](https://david-dm.org/CreaturePhil/dbb/dev-status.svg)](https://david-dm.org/CreaturePhil/dbb#info=devDependencies)
+[![Coverage Status](https://coveralls.io/repos/CreaturePhil/dbb/badge.svg)](https://coveralls.io/r/CreaturePhil/dbb)
+
+[![NPM](https://nodei.co/npm/dbb.png?downloads=true&downloadRank=true)](https://nodei.co/npm/dbb)
+
 An easy to use database.
 
+# Table of Contents
+
+* [API](#api)
+* [Limits](#limits)
+* [License](#license)
+
+# Installation
+
+```bash
+$ npm install dbb --save
+```
+
+<a name="api" />
 ## API
 
 * [Create Database](#create)
@@ -352,6 +372,14 @@ db().removeSync('key');
 db('users').removeSync({name: 'Phil'});
 ```
 
+<a name="limits" />
+# Limits
+
+DBB is a convenient method for storing data without setting up a database server.
+However, if you need high performance and scalability more than simplicity, 
+you should stick to databases like [MongoDB](https://www.mongodb.org).
+
+<a name="license" />
 # License
 
 [MIT](LICENSE)
