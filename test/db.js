@@ -248,7 +248,7 @@ describe('dbb#backup', function() {
     db = DBB('db.json', {backup: 1, test: true});
     setTimeout(function() {
       fs.readFile('db.json', 'utf8', function(err, data) {
-        if (err) throw new Error(err);
+        if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json['DBB_BACKUPS']).to.be.an('array');
@@ -256,5 +256,16 @@ describe('dbb#backup', function() {
         done();
       });
     }, 1000);
+  });
+
+  after(function(done) {
+    fs.readFile('db.json', 'utf8', function(err, data) {
+      if (err) return done(err);
+      console.log(data);
+      fs.unlink('db.json', function(err) {
+        if (err) return done(err);
+        done();
+      });
+    });
   });
 });
