@@ -1,4 +1,4 @@
-0.2.0
+0.2.0 / 2015-06-16
 ==================
 
   * Add online backup to Hastebin
