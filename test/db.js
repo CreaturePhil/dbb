@@ -244,15 +244,17 @@ describe('dbb#saveSync', function() {
 });
 
 describe('dbb#backup', function() {
-  it('should create a backup', function(done) {
+  it('should create backups', function(done) {
     db = DBB('db.json', {backup: 1, test: true});
+    db = DBB('db.json', {backup: 1, test: true});
+    db = DBB('db.json', {backup: 1});
     setTimeout(function() {
       fs.readFile('db.json', 'utf8', function(err, data) {
         if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json.DBB_BACKUPS).to.be.an('array');
-        expect(json.DBB_BACKUPS.length).to.equal(1);
+        expect(json.DBB_BACKUPS.length).to.equal(2);
         done();
       });
     }, 1000);
