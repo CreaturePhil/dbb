@@ -254,10 +254,10 @@ describe('dbb#backup', function() {
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
         expect(json.DBB_BACKUPS).to.be.an('array');
-        expect(json.DBB_BACKUPS.length).to.equal(2);
+        expect(json.DBB_BACKUPS).to.have.length.least(1);
         done();
       });
-    }, 1500);
+    }, 1000);
   });
 
   after(function(done) {
