@@ -242,3 +242,19 @@ describe('dbb#saveSync', function() {
     db('users').saveSync(user);
   });
 });
+
+describe('dbb#backup', function() {
+  it('should create a backup', function(done) {
+    db = DBB('db.json', {backup: 1, test: true});
+    setTimeout(function() {
+      fs.readFile('db.json', 'utf8', function(err, data) {
+        if (err) throw new Error(err);
+        var json = JSON.parse(data);
+        expect(json).to.be.an('object');
+        expect(json['DBB_BACKUPS']).to.be.an('array');
+        expect(json['DBB_BACKUPS'].length).to.equal(1);
+        done();
+      });
+    }, 1000);
+  });
+});
