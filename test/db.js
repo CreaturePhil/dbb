@@ -259,6 +259,27 @@ describe('dbb#backup', function() {
       });
     }, 1000);
   });
+});
+
+var db2;
+describe('writing before file is created', function() {
+  it('should write successfully', function(done) {
+    db2 = DBB('db2.json');
+    db2().set('key', 'value', function(err) {
+      if (err) return done(err);
+      db2('posts').insert('stuff', function(err) {
+        if (err) done(err);
+        fs.unlink('db2.json', function(err) {
+          if (err) return done(err);
+          db2 = DBB('db2.json');
+          db2().set('another key', 'another value', function(err) {
+            if (err) return done(err);
+            done();
+          })
+        });
+      });
+    });
+  });
 
   after(function(done) {
     fs.readFile('db.json', 'utf8', function(err, data) {
@@ -266,7 +287,10 @@ describe('dbb#backup', function() {
       console.log(data);
       fs.unlink('db.json', function(err) {
         if (err) return done(err);
-        done();
+        fs.unlink('db2.json', function(err) {
+          if (err) return done(err);
+          done();
+        });
       });
     });
   });
