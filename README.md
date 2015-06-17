@@ -495,7 +495,7 @@ __Examples__
 ```js
 var user = db('users').find({name: 'phil'});
 user.name = 'jack';
-db('users').save(user);
+db('users').saveSync(user);
 ```
 
 <a name="limits" />
