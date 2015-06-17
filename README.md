@@ -126,7 +126,7 @@ For each DBB's method, there is a synchronous version of it. For example, `get` 
 ### Create Database
 
 ```js
-DBB(file);
+DBB(file, options);
 ```
 
 Specify what JSON file to use. If it doesn't exist, the JSON file will be
@@ -135,12 +135,18 @@ created.
 __Arguments__
 
 1. `file` (String): JSON file name.
+2. `options` (Object): Provide options for DBB to used. Currently, there is
+only one option which is `backup`. The backup creates a POST request to 
+[Hastebin](http://hastebin.com) and adds the link to the *DBB_BACKUPS* field.
+You can set how long every *hour* the backup should save.
 
 __Examples__
 
 ```js
 var DBB = require('dbb');
 var db = DBB('db.json');
+// create a back up every 4 hours
+DBB('db.json', {backup: 4});
 ```
 
 <a name="query" />
