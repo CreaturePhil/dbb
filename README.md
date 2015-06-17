@@ -27,7 +27,10 @@ In `db.json`:
     "key": "value"
   },
   "posts": [
-    { "title": "DBB is amazing"  }
+    {
+      "_id": "851e4d6-df24-42fb-b478-4a0c93d117e1",
+      "title": "DBB is amazing"
+    }
   ]
 }
 ```
@@ -86,9 +89,9 @@ DBB stores data in a field which can be either be an object or an array.
 ```js
 // collection
 "field": [
-  { name: "phil", age: 7 },
-  { name: "jack", age: 20 },
-  { name: "steve", age: 99 }
+  { _id: "89cbfd78-8ec8-4338-8140-7a3efa5e89c6", name: "phil", age: 7 },
+  { _id: "12f3af49-b2e8-4e60-ae1c-9fb259ae6670", name: "jack", age: 20 },
+  { _id: "6f33c2bd-7bbf-4b4d-a8e6-1973a3fa4f63", name: "steve", age: 99 }
 ]
 ```
 
