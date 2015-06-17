@@ -251,8 +251,8 @@ describe('dbb#backup', function() {
         if (err) return done(err);
         var json = JSON.parse(data);
         expect(json).to.be.an('object');
-        expect(json['DBB_BACKUPS']).to.be.an('array');
-        expect(json['DBB_BACKUPS'].length).to.equal(1);
+        expect(json.DBB_BACKUPS).to.be.an('array');
+        expect(json.DBB_BACKUPS.length).to.equal(1);
         done();
       });
     }, 1000);
