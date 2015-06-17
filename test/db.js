@@ -257,7 +257,7 @@ describe('dbb#backup', function() {
         expect(json.DBB_BACKUPS.length).to.equal(2);
         done();
       });
-    }, 1000);
+    }, 1500);
   });
 
   after(function(done) {
